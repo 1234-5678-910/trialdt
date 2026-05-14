@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bridging Belief & Reason - Design Thinking Project 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+        
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .nav-item {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background-color: #E0E7FF;
+            border-left: 4px solid #667eea;
+        }
+        
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .upload-area {
+            border: 2px dashed #CBD5E0;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            border-color: #667eea;
+            background-color: #F7FAFC;
+        }
+        
+        .team-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .idea-card {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .idea-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            transition: width 1s ease-in-out;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .filter-btn.active {
+            background-color: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Top Navigation -->
+    <nav class="gradient-bg text-white fixed w-full z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                        <i class="fas fa-brain text-purple-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-xl">Bridging Belief & Reason</h1>
+                        <p class="text-xs text-blue-100">Design Thinking Project 2026 | Mahindra University</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="showSection('team')" class="px-4 py-2 rounded-full bg-white/20 hover:bg-white/30 transition text-sm font-medium">
+                        <i class="fas fa-users mr-2"></i>Team
+                    </button>
+                    <button onclick="showSection('ideas')" class="px-4 py-2 rounded-full bg-white/20 hover:bg-white/30 transition text-sm font-medium">
+                        <i class="fas fa-lightbulb mr-2"></i>Ideas
+                    </button>
+                    <button onclick="showSection('uploads')" class="px-4 py-2 rounded-full bg-white/20 hover:bg-white/30 transition text-sm font-medium">
+                        <i class="fas fa-upload mr-2"></i>Uploads
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-16 flex min-h-screen">
+        
+        <!-- Left Sidebar Navigation -->
+        <aside class="w-64 bg-white shadow-lg fixed h-full overflow-y-auto hidden lg:block border-r border-gray-200" style="height: calc(100vh - 4rem); top: 4rem;">
+            <div class="p-6">
+                <h3 class="font-bold text-gray-800 mb-4 text-lg border-b pb-2">Project Sections</h3>
+                <nav class="space-y-1">
+                    <button onclick="showSection('team')" class="nav-item active w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 text-gray-700 transition flex items-center">
+                        <i class="fas fa-users w-6 text-blue-600"></i>
+                        <span class="font-medium">Meet the Team</span>
+                    </button>
+                    <button onclick="showSection('protagonist')" class="nav-item w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 text-gray-700 transition flex items-center">
+                        <i class="fas fa-user-circle w-6 text-purple-600"></i>
+                        <span class="font-medium">User / Protagonist</span>
+                    </button>
+                    <button onclick="showSection('context')" class="nav-item w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 text-gray-700 transition flex items-center">
+                        <i class="fas fa-globe w-6 text-orange-600"></i>
+                        <span class="font-medium">Context & Situation</span>
+                    </button>
+                    <button onclick="showSection('evidence')" class="nav-item w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 text-gray-700 transition flex items-center">
+                        <i class="fas fa-chart-bar w-6 text-red-600"></i>
+                        <span class="font-medium">Evidence Base</span>
+                    </button>
+                    <button onclick="showSection('painpoints')" class="nav-item w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 text-gray-700 transition flex items-center">
+                        <i class="fas fa-exclamation-triangle w-6 text-yellow-600"></i>
+                        <span class="font-medium">Pain Points & Needs</span>
+                    </button>
+                    <button onclick="showSection('rootcauses')" class="nav-item w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 text-gray-700 transition flex items-center">
+                        <i class="fas fa-search w-6 text-indigo-600"></i>
+                        <span class="font-medium">Root Causes (5 Whys)</span>
+                    </button>
+                    <button onclick="showSection('hmw')" class="nav-item w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 text-gray-700 transition flex items-center">
+                        <i class="fas fa-lightbulb w-6 text-amber-600"></i>
+                        <span class="font-medium">How Might We...?</span>
+                    </button>
+                    <button onclick="showSection('ideas')" class="nav-item w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 text-gray-700 transition flex items-center">
+                        <i class="fas fa-star w-6 text-pink-600"></i>
+                        <span class="font-medium">192 Ideas</span>
+                    </button>
+                    <button onclick="showSection('prototype')" class="nav-item w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 text-gray-700 transition flex items-center">
+                        <i class="fas fa-project-diagram w-6 text-teal-600"></i>
+                        <span class="font-medium">Prototype / Flow</span>
+                    </button>
+                    <button onclick="showSection('courtcases')" class="nav-item w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 text-gray-700 transition flex items-center">
+                        <i class="fas fa-gavel w-6 text-gray-600"></i>
+                        <span class="font-medium">Court Cases</span>
+                    </button>
+                    <button onclick="showSection('conclusion')" class="nav-item w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 text-gray-700 transition flex items-center">
+                        <i class="fas fa-flag-checkered w-6 text-blue-600"></i>
+                        <span class="font-medium">Conclusion</span>
+                    </button>
+                    <button onclick="showSection('uploads')" class="nav-item w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 text-gray-700 transition flex items-center">
+                        <i class="fas fa-upload w-6 text-green-600"></i>
+                        <span class="font-medium">Upload Files</span>
+                    </button>
+                </nav>
+
+                <!-- Quick Stats -->
+                <div class="mt-8 p-4 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl border border-blue-100">
+                    <h4 class="font-semibold text-blue-900 mb-3 flex items-center">
+                        <i class="fas fa-chart-pie mr-2"></i> Project Stats
+                    </h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-blue-700">Survey Responses</span>
+                            <span class="font-bold text-blue-900 bg-blue-100 px-2 py-1 rounded">310</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-blue-700">Team Members</span>
+                            <span class="font-bold text-blue-900 bg-blue-100 px-2 py-1 rounded">8</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-blue-700">Ideas Generated</span>
+                            <span class="font-bold text-blue-900 bg-blue-100 px-2 py-1 rounded">192</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-blue-700">Interviews</span>
+                            <span class="font-bold text-blue-900 bg-blue-100 px-2 py-1 rounded">5</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-blue-700">Court Cases</span>
+                            <span class="font-bold text-blue-900 bg-blue-100 px-2 py-1 rounded">11</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Indicator -->
+                <div class="mt-6 p-4 bg-gray-50 rounded-xl">
+                    <h4 class="font-semibold text-gray-800 mb-2 text-sm">Section Progress</h4>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between text-xs">
+                            <span>Research Phase</span>
+                            <span class="text-green-600 font-bold">100%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full progress-bar" style="width: 100%"></div>
+                        </div>
+                        <div class="flex items-center justify-between text-xs">
+                            <span>Analysis Phase</span>
+                            <span class="text-green-600 font-bold">100%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full progress-bar" style="width: 100%"></div>
+                        </div>
+                        <div class="flex items-center justify-between text-xs">
+                            <span>Ideation Phase</span>
+                            <span class="text-green-600 font-bold">100%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full progress-bar" style="width: 100%"></div>
+                        </div>
+                        <div class="flex items-center justify-between text-xs">
+                            <span>Prototype Phase</span>
+                            <span class="text-blue-600 font-bold">80%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 lg:ml-64 p-8 max-w-7xl mx-auto">
+            
+            <!-- TEAM SECTION (FIRST VISIBLE) -->
+            <section id="team" class="section active">
+                <div class="mb-8">
+                    <h2 class="text-4xl font-bold gradient-bg text-white py-8 px-8 rounded-2xl mb-4">Meet Our Talented Team</h2>
+                    <p class="text-xl text-gray-600">Eight aspiring engineers passionate about bridging technology and social impact through design thinking.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    <!-- Gagan -->
+                    <div class="team-card bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                        <div class="h-48 bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center relative">
+                            <i class="fas fa-user text-6xl text-white/50"></i>
+                            <div class="absolute bottom-2 right-2">
+                                <button onclick="openImageUpload('gagan')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                    <i class="fas fa-camera text-blue-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-1">Gagan Veeravelly</h3>
+                            <p class="text-sm text-blue-600 font-semibold mb-3">SE24UARI157</p>
+                            <p class="text-gray-600 text-sm leading-relaxed">Tech-First Solutions & AR/VR Innovation Specialist. Passionate about leveraging emerging technologies to solve real-world problems.</p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">AR/VR</span>
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">AI</span>
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Innovation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agasthya -->
+                    <div class="team-card bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                        <div class="h-48 bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center relative">
+                            <i class="fas fa-user text-6xl text-white/50"></i>
+                            <div class="absolute bottom-2 right-2">
+                                <button onclick="openImageUpload('agasthya')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                    <i class="fas fa-camera text-green-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-1">Agasthya Birudaraju</h3>
+                            <p class="text-sm text-green-600 font-semibold mb-3">SE24UARI117</p>
+                            <p class="text-gray-600 text-sm leading-relaxed">Community Systems & Integrated Health Solutions Expert. Focused on creating bridges between traditional and modern healthcare.</p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Community</span>
+                                <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Healthcare</span>
+                                <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Integration</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Varshitha -->
+                    <div class="team-card bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                        <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center relative">
+                            <i class="fas fa-user text-6xl text-white/50"></i>
+                            <div class="absolute bottom-2 right-2">
+                                <button onclick="openImageUpload('varshitha')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                    <i class="fas fa-camera text-purple-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-1">Varshitha Yanamadala</h3>
+                            <p class="text-sm text-purple-600 font-semibold mb-3">SE24UARI158</p>
+                            <p class="text-gray-600 text-sm leading-relaxed">Research Analysis & Data Visualization Specialist. Expert at transforming complex data into actionable insights.</p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">Data Analysis</span>
+                                <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">Research</span>
+                                <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">Visualization</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rushwanth -->
+                    <div class="team-card bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                        <div class="h-48 bg-gradient-to-br from-red-400 to-orange-500 flex items-center justify-center relative">
+                            <i class="fas fa-user text-6xl text-white/50"></i>
+                            <div class="absolute bottom-2 right-2">
+                                <button onclick="openImageUpload('rushwanth')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                    <i class="fas fa-camera text-red-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-1">Loka Rushwanth Reddy</h3>
+                            <p class="text-sm text-red-600 font-semibold mb-3">SE24UCSE115</p>
+                            <p class="text-gray-600 text-sm leading-relaxed">Safety & Policy Lead | Primary Interviewer. Skilled at conducting empathetic interviews and developing safety protocols.</p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full">Policy</span>
+                                <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full">Safety</span>
+                                <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full">Interviews</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tanai -->
+                    <div class="team-card bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                        <div class="h-48 bg-gradient-to-br from-yellow-400 to-red-500 flex items-center justify-center relative">
+                            <i class="fas fa-user text-6xl text-white/50"></i>
+                            <div class="absolute bottom-2 right-2">
+                                <button onclick="openImageUpload('tanai')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                    <i class="fas fa-camera text-yellow-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-1">Ravuri Tanai</h3>
+                            <p class="text-sm text-yellow-600 font-semibold mb-3">SE24UCSE093</p>
+                            <p class="text-gray-600 text-sm leading-relaxed">Healthcare Integration & Educational Content Designer. Creating bridges between traditional and modern healthcare systems.</p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">Healthcare</span>
+                                <span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">Education</span>
+                                <span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">Content</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jaswanth -->
+                    <div class="team-card bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                        <div class="h-48 bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center relative">
+                            <i class="fas fa-user text-6xl text-white/50"></i>
+                            <div class="absolute bottom-2 right-2">
+                                <button onclick="openImageUpload('jaswanth')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                    <i class="fas fa-camera text-indigo-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-1">Mallabathula Jaswanth</h3>
+                            <p class="text-sm text-indigo-600 font-semibold mb-3">SE24UCSE124</p>
+                            <p class="text-gray-600 text-sm leading-relaxed">Education & Content Creation Specialist. Expert at developing engaging educational materials and multimedia content.</p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">Education</span>
+                                <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">Content</span>
+                                <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">Multimedia</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Susain -->
+                    <div class="team-card bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                        <div class="h-48 bg-gradient-to-br from-teal-400 to-green-500 flex items-center justify-center relative">
+                            <i class="fas fa-user text-6xl text-white/50"></i>
+                            <div class="absolute bottom-2 right-2">
+                                <button onclick="openImageUpload('susain')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                    <i class="fas fa-camera text-teal-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-1">Susain Manikanta Varma</h3>
+                            <p class="text-sm text-teal-600 font-semibold mb-3">SE24UARI148</p>
+                            <p class="text-gray-600 text-sm leading-relaxed">Creative Design & Media Strategy Expert. Bringing creative vision to life through innovative design and media solutions.</p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="text-xs bg-teal-100 text-teal-700 px-2 py-1 rounded-full">Design</span>
+                                <span class="text-xs bg-teal-100 text-teal-700 px-2 py-1 rounded-full">Media</span>
+                                <span class="text-xs bg-teal-100 text-teal-700 px-2 py-1 rounded-full">Creative</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sathphala -->
+                    <div class="team-card bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                        <div class="h-48 bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center relative">
+                            <i class="fas fa-user text-6xl text-white/50"></i>
+                            <div class="absolute bottom-2 right-2">
+                                <button onclick="openImageUpload('sathphala')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                    <i class="fas fa-camera text-pink-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-1">Sathphala Reddy Puram</h3>
+                            <p class="text-sm text-pink-600 font-semibold mb-3">SE24UARI099</p>
+                            <p class="text-gray-600 text-sm leading-relaxed">Systems Thinking & Policy Framework Designer. Developing comprehensive systems and policy frameworks for sustainable solutions.</p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="text-xs bg-pink-100 text-pink-700 px-2 py-1 rounded-full">Systems</span>
+                                <span class="text-xs bg-pink-100 text-pink-700 px-2 py-1 rounded-full">Policy</span>
+                                <span class="text-xs bg-pink-100 text-pink-700 px-2 py-1 rounded-full">Framework</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Photo Upload Section -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-4">Upload Team Photos</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('teamGroupPhoto').click()">
+                            <i class="fas fa-users text-4xl text-blue-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Group Photo</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload team group photo</p>
+                            <input type="file" id="teamGroupPhoto" multiple accept="image/*" class="hidden" onchange="handleFileUpload(this, 'team')">
+                            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Select Group Photo</button>
+                        </div>
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('individualPhotos').click()">
+                            <i class="fas fa-user-friends text-4xl text-purple-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Individual Photos</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload individual team member photos</p>
+                            <input type="file" id="individualPhotos" multiple accept="image/*" class="hidden" onchange="handleFileUpload(this, 'team')">
+                            <button class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Select Individual Photos</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROTAGONIST SECTION -->
+            <section id="protagonist" class="section">
+                <div class="mb-8">
+                    <h2 class="text-4xl font-bold gradient-bg text-white py-8 px-8 rounded-2xl mb-4">User / Protagonist</h2>
+                    <p class="text-xl text-gray-600">Our primary persona represents the typical user we're designing for.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/3">
+                            <div class="bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl p-8 text-center relative">
+                                <div class="absolute bottom-2 right-2">
+                                    <button onclick="openImageUpload('protagonist')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                        <i class="fas fa-camera text-blue-600"></i>
+                                    </button>
+                                </div>
+                                <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-user text-5xl text-purple-600"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white mb-2">"Akhil"</h3>
+                                <p class="text-blue-100 font-medium">The Skeptic Turned Believer</p>
+                                <div class="mt-6 text-left text-sm text-white/90 space-y-2">
+                                    <p><i class="fas fa-calendar-alt mr-2"></i>Age: 20 years</p>
+                                    <p><i class="fas fa-graduation-cap mr-2"></i>Engineering Student</p>
+                                    <p><i class="fas fa-map-marker-alt mr-2"></i>Urban Campus</p>
+                                    <p><i class="fas fa-laptop mr-2"></i>Science-Minded</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:w-2/3">
+                            <h4 class="text-2xl font-bold mb-4 text-gray-800">User Story</h4>
+                            <div class="bg-blue-50 rounded-xl p-6 mb-6">
+                                <p class="text-gray-700 leading-relaxed italic">"I don't know what I believe anymore. It sits in this uncomfortable middle space."</p>
+                            </div>
+                            
+                            <h5 class="font-bold text-lg mb-3 text-gray-800">Background</h5>
+                            <p class="text-gray-600 mb-4 leading-relaxed">Akhil is a 20-year-old engineering student who considers himself science-minded and didn't believe in black magic. However, after participating in a ritual to "prove it was fake," he experienced a blackout and 14-16 hours of psychological distress. Medical treatment (anti-depressants) didn't fully help, and while he recovered in 10-15 days, he remains uncertain about what happened.</p>
+                            
+                            <h5 class="font-bold text-lg mb-3 text-gray-800">Key Pain Points</h5>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-start">
+                                    <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-3"></i>
+                                    <span class="text-gray-600">Cognitive dissonance between scientific beliefs and unexplained personal experience</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-3"></i>
+                                    <span class="text-gray-600">Medical treatment didn't fully address his psychological distress</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-3"></i>
+                                    <span class="text-gray-600">Lack of integrated support systems that respect both scientific and cultural perspectives</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-3"></i>
+                                    <span class="text-gray-600">Social isolation - unable to discuss experiences without judgment</span>
+                                </li>
+                            </ul>
+                            
+                            <h5 class="font-bold text-lg mb-3 text-gray-800">Needs</h5>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                    <span class="text-gray-600">Integrated support that respects both scientific and cultural perspectives</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                    <span class="text-gray-600">Immediate grounding techniques for moments of distress</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                    <span class="text-gray-600">Safe, anonymous space to discuss experiences without judgment</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                    <span class="text-gray-600">Access to both psychological and cultural support resources</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Upload for Protagonist Section -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-4">Upload Protagonist Images</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('protagonistPhoto').click()">
+                            <i class="fas fa-user-circle text-4xl text-blue-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Protagonist Photo</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload photo or illustration of the protagonist</p>
+                            <input type="file" id="protagonistPhoto" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'protagonist')">
+                            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Select Photo</button>
+                        </div>
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('protagonistJourney').click()">
+                            <i class="fas fa-route text-4xl text-purple-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Journey Map</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload user journey map or empathy map</p>
+                            <input type="file" id="protagonistJourney" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'protagonist')">
+                            <button class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Select Journey Map</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTEXT & SITUATION SECTION -->
+            <section id="context" class="section">
+                <div class="mb-8">
+                    <h2 class="text-4xl font-bold gradient-bg text-white py-8 px-8 rounded-2xl mb-4">Context & Situation</h2>
+                    <p class="text-xl text-gray-600">Understanding the landscape of black magic beliefs in India and their impact on young adults.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Research Scope</h3>
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-blue-50 rounded-xl p-6 relative">
+                            <div class="absolute bottom-2 right-2">
+                                <button onclick="openImageUpload('context1')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                    <i class="fas fa-camera text-blue-600"></i>
+                                </button>
+                            </div>
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-clipboard-list text-blue-600"></i>
+                                </div>
+                                <h4 class="font-bold text-lg">310 Survey Responses</h4>
+                            </div>
+                            <p class="text-gray-600 mb-4">Collected from young adults aged 18-25 years across urban and semi-urban areas.</p>
+                            <div class="bg-white rounded-lg p-4">
+                                <p class="text-sm text-gray-700"><strong>Demographics:</strong></p>
+                                <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                                    <li>• Age Range: 18-25 years</li>
+                                    <li>• Location: Urban/Semi-urban India</li>
+                                    <li>• Education: College students</li>
+                                    <li>• Gender: Mixed</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-purple-50 rounded-xl p-6 relative">
+                            <div class="absolute bottom-2 right-2">
+                                <button onclick="openImageUpload('context2')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                    <i class="fas fa-camera text-purple-600"></i>
+                                </button>
+                            </div>
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-comments text-purple-600"></i>
+                                </div>
+                                <h4 class="font-bold text-lg">5 In-Depth Interviews</h4>
+                            </div>
+                            <p class="text-gray-600 mb-4">Including Akhil's detailed narrative and 4 additional qualitative interviews.</p>
+                            <div class="bg-white rounded-lg p-4">
+                                <p class="text-sm text-gray-700"><strong>Interview Topics:</strong></p>
+                                <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                                    <li>• Personal experiences with unexplained phenomena</li>
+                                    <li>• Belief formation and sources</li>
+                                    <li>• Mental health impact</li>
+                                    <li>• Help-seeking behavior</li>
+                                    <li>• Cultural and family influences</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-500 p-6 rounded-r-xl mb-8 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('context3')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-amber-600"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-amber-900 mb-3 flex items-center">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>
+                            Key Cultural Tension
+                        </h4>
+                        <p class="text-gray-800 leading-relaxed">Young Indians are navigating a complex landscape of family traditions, social media influence, AND scientific education—often without integrated frameworks to process unexplained experiences. This creates cognitive dissonance, anxiety, and a lack of appropriate support systems.</p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6 mb-8 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('context4')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-gray-600"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-lg mb-4 text-gray-800">Black Magic in India: More Than Folklore</h4>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Black magic in India is more than folklore—it contributes to crime, fraud, violence, and psychological distress. Surveys show many people believe in its effects, often influenced by tradition and media, while court cases and regional reports highlight growing legal concerns. Although belief remains common, many victims seek medical or psychological help, linking superstition with mental health. Social spread of victimhood claims further amplifies harm, emphasizing the need for legal, educational, and psychological interventions that respect cultural contexts.</p>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mt-6">
+                            <div class="bg-white rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-red-600 mb-1">11</div>
+                                <p class="text-sm text-gray-600">Court Cases Analyzed</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-blue-600 mb-1">62.9%</div>
+                                <p class="text-sm text-gray-600">Open to Supernatural Explanations</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-purple-600 mb-1">58%</div>
+                                <p class="text-sm text-gray-600">Report Mental Health Impact</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Target Audience -->
+                    <div class="bg-white rounded-xl border border-gray-200 p-6 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('context5')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-gray-600"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-lg mb-4 text-gray-800">Target Audience Profile</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h5 class="font-semibold mb-2 text-gray-700">Demographics</h5>
+                                <ul class="text-sm text-gray-600 space-y-2">
+                                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Age: 18-25 years</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Education: College students</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Location: Urban/Semi-urban India</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Exposure: Both traditional beliefs & modern science</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold mb-2 text-gray-700">Characteristics</h5>
+                                <ul class="text-sm text-gray-600 space-y-2">
+                                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Navigate family traditions vs. scientific education</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Influenced by social media and peer groups</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Experience cognitive dissonance</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Seek integrated support systems</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Upload for Context Section -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-4">Upload Context Images</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('contextImage1').click()">
+                            <i class="fas fa-globe-asia text-4xl text-blue-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Cultural Context</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload images showing cultural landscape</p>
+                            <input type="file" id="contextImage1" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'context')">
+                            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Select Image</button>
+                        </div>
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('contextImage2').click()">
+                            <i class="fas fa-chart-pie text-4xl text-purple-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Research Methodology</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload research methodology diagrams</p>
+                            <input type="file" id="contextImage2" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'context')">
+                            <button class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Select Image</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EVIDENCE BASE SECTION -->
+            <section id="evidence" class="section">
+                <div class="mb-8">
+                    <h2 class="text-4xl font-bold gradient-bg text-white py-8 px-8 rounded-2xl mb-4">Evidence Base</h2>
+                    <p class="text-xl text-gray-600">Comprehensive analysis of 310 survey responses with detailed data visualizations.</p>
+                </div>
+
+                <!-- Key Statistics Overview -->
+                <div class="grid md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 text-center card-hover border-t-4 border-blue-500">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">310</div>
+                        <p class="text-gray-600 font-medium">Total Responses</p>
+                        <p class="text-xs text-gray-500 mt-1">Complete dataset</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 text-center card-hover border-t-4 border-purple-500">
+                        <div class="text-4xl font-bold text-purple-600 mb-2">18-25</div>
+                        <p class="text-gray-600 font-medium">Age Range</p>
+                        <p class="text-xs text-gray-500 mt-1">Young adults</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 text-center card-hover border-t-4 border-green-500">
+                        <div class="text-4xl font-bold text-green-600 mb-2">5</div>
+                        <p class="text-gray-600 font-medium">In-Depth Interviews</p>
+                        <p class="text-xs text-gray-500 mt-1">Qualitative research</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 text-center card-hover border-t-4 border-orange-500">
+                        <div class="text-4xl font-bold text-orange-600 mb-2">11</div>
+                        <p class="text-gray-600 font-medium">Court Cases</p>
+                        <p class="text-xs text-gray-500 mt-1">Legal analysis</p>
+                    </div>
+                </div>
+
+                <!-- Survey Data Analysis -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Survey Response Analysis (n=310)</h3>
+                    
+                    <!-- Belief Distribution -->
+                    <div class="mb-8 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('evidence1')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-blue-600"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-lg mb-4 text-gray-700">1. Belief in Black Magic or Supernatural Forces</h4>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-green-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-green-600 mb-1">98</div>
+                                <p class="text-sm text-gray-600">Yes (31.6%)</p>
+                                <div class="mt-2 bg-green-200 rounded-full h-2">
+                                    <div class="bg-green-600 h-2 rounded-full progress-bar" style="width: 31.6%"></div>
+                                </div>
+                            </div>
+                            <div class="bg-red-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-red-600 mb-1">112</div>
+                                <p class="text-sm text-gray-600">No (36.1%)</p>
+                                <div class="mt-2 bg-red-200 rounded-full h-2">
+                                    <div class="bg-red-600 h-2 rounded-full progress-bar" style="width: 36.1%"></div>
+                                </div>
+                            </div>
+                            <div class="bg-yellow-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-yellow-600 mb-1">100</div>
+                                <p class="text-sm text-gray-600">Maybe (32.3%)</p>
+                                <div class="mt-2 bg-yellow-200 rounded-full h-2">
+                                    <div class="bg-yellow-600 h-2 rounded-full progress-bar" style="width: 32.3%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">62.9% of respondents are open to supernatural explanations (Yes + Maybe)</p>
+                    </div>
+
+                    <!-- Sources of Belief -->
+                    <div class="mb-8 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('evidence2')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-blue-600"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-lg mb-4 text-gray-700">2. Sources of Belief</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <span class="w-32 text-sm font-medium">Family/Tradition</span>
+                                <div class="flex-1 mx-4 bg-gray-200 rounded-full h-6">
+                                    <div class="bg-blue-600 h-6 rounded-full progress-bar" style="width: 28.4%"></div>
+                                </div>
+                                <span class="text-sm font-bold w-12">88 (28.4%)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-32 text-sm font-medium">Personal Experience</span>
+                                <div class="flex-1 mx-4 bg-gray-200 rounded-full h-6">
+                                    <div class="bg-purple-600 h-6 rounded-full progress-bar" style="width: 22.3%"></div>
+                                </div>
+                                <span class="text-sm font-bold w-12">69 (22.3%)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-32 text-sm font-medium">Internet/Social Media</span>
+                                <div class="flex-1 mx-4 bg-gray-200 rounded-full h-6">
+                                    <div class="bg-green-600 h-6 rounded-full progress-bar" style="width: 18.7%"></div>
+                                </div>
+                                <span class="text-sm font-bold w-12">58 (18.7%)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-32 text-sm font-medium">Friends/People</span>
+                                <div class="flex-1 mx-4 bg-gray-200 rounded-full h-6">
+                                    <div class="bg-orange-600 h-6 rounded-full progress-bar" style="width: 17.1%"></div>
+                                </div>
+                                <span class="text-sm font-bold w-12">53 (17.1%)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-32 text-sm font-medium">Movies/Media</span>
+                                <div class="flex-1 mx-4 bg-gray-200 rounded-full h-6">
+                                    <div class="bg-red-600 h-6 rounded-full progress-bar" style="width: 13.5%"></div>
+                                </div>
+                                <span class="text-sm font-bold w-12">42 (13.5%)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Unexplained Experiences -->
+                    <div class="mb-8 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('evidence3')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-blue-600"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-lg mb-4 text-gray-700">3. Have You Ever Experienced Something Unexplainable?</h4>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-blue-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-blue-600 mb-1">142</div>
+                                <p class="text-sm text-gray-600">Yes (45.8%)</p>
+                            </div>
+                            <div class="bg-red-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-red-600 mb-1">118</div>
+                                <p class="text-sm text-gray-600">No (38.1%)</p>
+                            </div>
+                            <div class="bg-yellow-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-yellow-600 mb-1">50</div>
+                                <p class="text-sm text-gray-600">Maybe (16.1%)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Types of Experiences -->
+                    <div class="mb-8 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('evidence4')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-blue-600"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-lg mb-4 text-gray-700">4. Types of Unexplained Experiences</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-purple-50 rounded-xl p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-medium">Nightmares/Strange Dreams</span>
+                                    <span class="font-bold text-purple-600">68 (21.9%)</span>
+                                </div>
+                                <div class="bg-purple-200 rounded-full h-2">
+                                    <div class="bg-purple-600 h-2 rounded-full progress-bar" style="width: 21.9%"></div>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 rounded-xl p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-medium">Feeling Uneasy/Watched</span>
+                                    <span class="font-bold text-blue-600">52 (16.8%)</span>
+                                </div>
+                                <div class="bg-blue-200 rounded-full h-2">
+                                    <div class="bg-blue-600 h-2 rounded-full progress-bar" style="width: 16.8%"></div>
+                                </div>
+                            </div>
+                            <div class="bg-green-50 rounded-xl p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-medium">Sudden Bad Luck</span>
+                                    <span class="font-bold text-green-600">45 (14.5%)</span>
+                                </div>
+                                <div class="bg-green-200 rounded-full h-2">
+                                    <div class="bg-green-600 h-2 rounded-full progress-bar" style="width: 14.5%"></div>
+                                </div>
+                            </div>
+                            <div class="bg-orange-50 rounded-xl p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-medium">Health Issues Without Clear Reason</span>
+                                    <span class="font-bold text-orange-600">38 (12.3%)</span>
+                                </div>
+                                <div class="bg-orange-200 rounded-full h-2">
+                                    <div class="bg-orange-600 h-2 rounded-full progress-bar" style="width: 12.3%"></div>
+                                </div>
+                            </div>
+                            <div class="bg-red-50 rounded-xl p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-medium">Other</span>
+                                    <span class="font-bold text-red-600">87 (28.1%)</span>
+                                </div>
+                                <div class="bg-red-200 rounded-full h-2">
+                                    <div class="bg-red-600 h-2 rounded-full progress-bar" style="width: 28.1%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mental Health Impact -->
+                    <div class="mb-8 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('evidence5')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-blue-600"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-lg mb-4 text-gray-700">5. Mental Health Impact of Belief in Black Magic</h4>
+                        <div class="grid md:grid-cols-4 gap-4">
+                            <div class="bg-red-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-red-600 mb-1">112</div>
+                                <p class="text-sm text-gray-600">A Lot (36.1%)</p>
+                            </div>
+                            <div class="bg-orange-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-orange-600 mb-1">68</div>
+                                <p class="text-sm text-gray-600">Somewhat (21.9%)</p>
+                            </div>
+                            <div class="bg-yellow-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-yellow-600 mb-1">89</div>
+                                <p class="text-sm text-gray-600">Very Little (28.7%)</p>
+                            </div>
+                            <div class="bg-green-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-green-600 mb-1">41</div>
+                                <p class="text-sm text-gray-600">Not at All (13.2%)</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2 font-medium">58.0% report moderate-to-high mental health impact (A Lot + Somewhat)</p>
+                    </div>
+
+                    <!-- Help-Seeking Behavior -->
+                    <div class="mb-8 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('evidence6')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-blue-600"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-lg mb-4 text-gray-700">6. Help-Seeking Preferences</h4>
+                        <div class="grid md:grid-cols-4 gap-4">
+                            <div class="bg-blue-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-blue-600 mb-1">102</div>
+                                <p class="text-sm text-gray-600">Medical/Psychological (32.9%)</p>
+                            </div>
+                            <div class="bg-purple-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-purple-600 mb-1">98</div>
+                                <p class="text-sm text-gray-600">Spiritual/Religious (31.6%)</p>
+                            </div>
+                            <div class="bg-green-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-green-600 mb-1">67</div>
+                                <p class="text-sm text-gray-600">Both Approaches (21.6%)</p>
+                            </div>
+                            <div class="bg-red-50 rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold text-red-600 mb-1">43</div>
+                                <p class="text-sm text-gray-600">Would Not Seek Help (13.9%)</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2 font-medium">54.5% prefer medical OR combined support</p>
+                    </div>
+
+                    <!-- Cross-Analysis -->
+                    <div class="bg-gray-50 rounded-xl p-6 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('evidence7')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-blue-600"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-lg mb-4 text-gray-700">Key Cross-Analyses</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h5 class="font-semibold mb-2">Belief vs. Experience</h5>
+                                <ul class="text-sm text-gray-600 space-y-2">
+                                    <li>• 68% of believers reported unexplained experiences</li>
+                                    <li>• 28% of non-believers reported similar experiences</li>
+                                    <li>• Among those with experiences, 52% still attributed them to psychological/coincidental causes</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold mb-2">Mental Health vs. Belief</h5>
+                                <ul class="text-sm text-gray-600 space-y-2">
+                                    <li>• 78% of believers report mental health impact</li>
+                                    <li>• 38% of non-believers report mental health impact</li>
+                                    <li>• Strong correlation between belief strength and distress level</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Upload for Evidence Section -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-4">Upload Data Visualizations</h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('chartImage1').click()">
+                            <i class="fas fa-chart-bar text-4xl text-blue-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Charts & Graphs</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload survey data visualizations</p>
+                            <input type="file" id="chartImage1" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'evidence')">
+                            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Select Charts</button>
+                        </div>
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('chartImage2').click()">
+                            <i class="fas fa-table text-4xl text-purple-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Data Tables</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload raw data tables</p>
+                            <input type="file" id="chartImage2" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'evidence')">
+                            <button class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Select Tables</button>
+                        </div>
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('chartImage3').click()">
+                            <i class="fas fa-file-excel text-4xl text-green-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Excel Data</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload survey response spreadsheets</p>
+                            <input type="file" id="chartImage3" accept=".xlsx,.xls,.csv" class="hidden" onchange="handleFileUpload(this, 'evidence')">
+                            <button class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">Select Excel</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAIN POINTS & NEEDS SECTION -->
+            <section id="painpoints" class="section">
+                <div class="mb-8">
+                    <h2 class="text-4xl font-bold gradient-bg text-white py-8 px-8 rounded-2xl mb-4">Pain Points & Needs</h2>
+                    <p class="text-xl text-gray-600">Comprehensive analysis of user challenges and validated needs from our research.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <!-- Pain Points -->
+                    <div class="bg-white rounded-2xl shadow-lg p-8 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('pain1')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-red-600"></i>
+                            </button>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-6 text-red-700 flex items-center">
+                            <i class="fas fa-exclamation-triangle mr-3"></i>
+                            Combined Pain Points
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="bg-red-100 text-red-600 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3 text-sm font-bold">1</span>
+                                <div>
+                                    <span class="text-gray-700 font-medium">Blind belief in supernatural traditions and rituals</span>
+                                    <p class="text-sm text-gray-500 mt-1">Users follow traditions without questioning, leading to harmful practices</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-red-100 text-red-600 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3 text-sm font-bold">2</span>
+                                <div>
+                                    <span class="text-gray-700 font-medium">Generational/community fear and social pressure</span>
+                                    <p class="text-sm text-gray-500 mt-1">Fear of judgment prevents open discussion and help-seeking</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-red-100 text-red-600 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3 text-sm font-bold">3</span>
+                                <div>
+                                    <span class="text-gray-700 font-medium">Anxiety, stress, emotional insecurity, and fear of curses/bad luck</span>
+                                    <p class="text-sm text-gray-500 mt-1">Significant mental health impact affecting daily functioning</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-red-100 text-red-600 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3 text-sm font-bold">4</span>
+                                <div>
+                                    <span class="text-gray-700 font-medium">Dependence on supernatural explanations during problems</span>
+                                    <p class="text-sm text-gray-500 mt-1">Users attribute normal life challenges to supernatural causes</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-red-100 text-red-600 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3 text-sm font-bold">5</span>
+                                <div>
+                                    <span class="text-gray-700 font-medium">Misinterpreting coincidences due to confirmation bias and irrational thinking</span>
+                                    <p class="text-sm text-gray-500 mt-1">Cognitive biases reinforce supernatural beliefs</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-red-100 text-red-600 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3 text-sm font-bold">6</span>
+                                <div>
+                                    <span class="text-gray-700 font-medium">Influence of horror/paranormal media and online misinformation</span>
+                                    <p class="text-sm text-gray-500 mt-1">Social media amplifies fear and spreads unverified claims</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-red-100 text-red-600 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3 text-sm font-bold">7</span>
+                                <div>
+                                    <span class="text-gray-700 font-medium">Lack of scientific awareness and critical thinking</span>
+                                    <p class="text-sm text-gray-500 mt-1">Educational gaps leave users vulnerable to manipulation</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-red-100 text-red-600 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3 text-sm font-bold">8</span>
+                                <div>
+                                    <span class="text-gray-700 font-medium">Emotional dependence on rituals and spiritual healers</span>
+                                    <p class="text-sm text-gray-500 mt-1">Creates cycle of dependency and potential exploitation</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Validated Needs -->
+                    <div class="bg-white rounded-2xl shadow-lg p-8 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('pain2')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-green-600"></i>
+                            </button>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-6 text-green-700 flex items-center">
+                            <i class="fas fa-check-circle mr-3"></i>
+                            Combined Needs
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3 text-sm font-bold">1</span>
+                                <div>
+                                    <span class="text-gray-700 font-medium">Scientific awareness, rational understanding, and evidence-based information</span>
+                                    <p class="text-sm text-gray-500 mt-1">Accessible education about psychological phenomena and cognitive biases</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3 text-sm font-bold">2</span>
+                                <div>
+                                    <span class="text-gray-700 font-medium">Critical thinking, logical reasoning, and psychology/cognitive bias education</span>
+                                    <p class="text-sm text-gray-500 mt-1">Tools to evaluate experiences rationally without dismissing cultural context</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3 text-sm font-bold">3</span>
+                                <div>
+                                    <span class="text-gray-700 font-medium">Mental health awareness, counseling, stress management, and safe emotional support</span>
+                                    <p class="text-sm text-gray-500 mt-1">Immediate access to culturally-sensitive mental health resources</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3 text-sm font-bold">4</span>
+                                <div>
+                                    <span class="text-gray-700 font-medium">Open family/community discussions and supportive guidance networks</span>
+                                    <p class="text-sm text-gray-500 mt-1">Safe spaces to discuss experiences without fear of judgment</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-green-100 text-green-600 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mr-3 text-sm font-bold">5</span>
+                                <div>
+                                    <span class="text-gray-700 font-medium">Media literacy and awareness of misinformation/superstition</span>
+                                    <p class="text-sm text-gray-500 mt-1">Skills to critically evaluate online content and identify scams</p>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <!-- Survey Validation -->
+                        <div class="mt-8 bg-gray-50 rounded-xl p-6">
+                            <h4 class="font-bold text-gray-800 mb-3">Survey Validation</h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-blue-600">58.0%</div>
+                                    <p class="text-xs text-gray-600">Report mental health impact</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-purple-600">54.5%</div>
+                                    <p class="text-xs text-gray-600">Seek medical/combined help</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-green-600">62.9%</div>
+                                    <p class="text-xs text-gray-600">Open to supernatural explanations</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-orange-600">45.8%</div>
+                                    <p class="text-xs text-gray-600">Report unexplained experiences</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Upload for Pain Points Section -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-4">Upload Pain Points Visualizations</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('painPointsImage1').click()">
+                            <i class="fas fa-user-times text-4xl text-red-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Empathy Map</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload empathy map or user journey visualization</p>
+                            <input type="file" id="painPointsImage1" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'painpoints')">
+                            <button class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition">Select Empathy Map</button>
+                        </div>
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('painPointsImage2').click()">
+                            <i class="fas fa-lightbulb text-4xl text-green-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Needs Assessment</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload needs assessment diagrams</p>
+                            <input type="file" id="painPointsImage2" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'painpoints')">
+                            <button class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">Select Needs Diagram</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROOT CAUSES SECTION -->
+            <section id="rootcauses" class="section">
+                <div class="mb-8">
+                    <h2 class="text-4xl font-bold gradient-bg text-white py-8 px-8 rounded-2xl mb-4">Root Causes (5 Whys)</h2>
+                    <p class="text-xl text-gray-600">Deep dive analysis to uncover the underlying causes of supernatural belief-related distress.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                    <div class="flex items-start mb-8 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('root1')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-red-600"></i>
+                            </button>
+                        </div>
+                        <div class="bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold flex-shrink-0 mr-4 text-xl">P</div>
+                        <div class="flex-1 bg-red-50 p-6 rounded-xl border-2 border-red-200">
+                            <p class="font-bold text-red-900 text-lg mb-2">Problem Statement</p>
+                            <p class="text-gray-800 leading-relaxed">Young adults experience psychological distress from unexplained experiences but lack accessible, non-judgmental support systems that integrate scientific and cultural perspectives.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Why 1 -->
+                        <div class="flex items-start">
+                            <div class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0 mr-4">1</div>
+                            <div class="flex-1 bg-blue-50 p-6 rounded-xl">
+                                <p class="font-semibold text-blue-900 mb-2">Why #1: Cultural & Traditional Influence</p>
+                                <p class="text-gray-800">Family, religion, and community traditions normalize supernatural beliefs, creating a foundation where supernatural explanations are readily accepted.</p>
+                                <div class="mt-3 bg-white rounded-lg p-3">
+                                    <p class="text-sm text-gray-600"><strong>Evidence:</strong> 28.4% of respondents cite Family/Tradition as primary source of belief</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center">
+                            <i class="fas fa-arrow-down text-3xl text-gray-400"></i>
+                        </div>
+
+                        <!-- Why 2 -->
+                        <div class="flex items-start">
+                            <div class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0 mr-4">2</div>
+                            <div class="flex-1 bg-blue-50 p-6 rounded-xl">
+                                <p class="font-semibold text-blue-900 mb-2">Why #2: Fear & Emotional Vulnerability</p>
+                                <p class="text-gray-800">Stress, anxiety, and fear of the unknown encourage supernatural explanations as coping mechanisms during times of uncertainty.</p>
+                                <div class="mt-3 bg-white rounded-lg p-3">
+                                    <p class="text-sm text-gray-600"><strong>Evidence:</strong> 58% report mental health impact from supernatural beliefs</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center">
+                            <i class="fas fa-arrow-down text-3xl text-gray-400"></i>
+                        </div>
+
+                        <!-- Why 3 -->
+                        <div class="flex items-start">
+                            <div class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0 mr-4">3</div>
+                            <div class="flex-1 bg-blue-50 p-6 rounded-xl">
+                                <p class="font-semibold text-blue-900 mb-2">Why #3: Personal Experiences & Cognitive Bias</p>
+                                <p class="text-gray-800">Coincidences and unusual events are linked to supernatural beliefs through confirmation bias and pattern recognition, reinforcing existing beliefs.</p>
+                                <div class="mt-3 bg-white rounded-lg p-3">
+                                    <p class="text-sm text-gray-600"><strong>Evidence:</strong> 45.8% report unexplained experiences; 68% of believers had such experiences</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center">
+                            <i class="fas fa-arrow-down text-3xl text-gray-400"></i>
+                        </div>
+
+                        <!-- Why 4 -->
+                        <div class="flex items-start">
+                            <div class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0 mr-4">4</div>
+                            <div class="flex-1 bg-blue-50 p-6 rounded-xl">
+                                <p class="font-semibold text-blue-900 mb-2">Why #4: Media Influence & Low Scientific Awareness</p>
+                                <p class="text-gray-800">Paranormal media and limited scientific understanding strengthen irrational beliefs, while social media amplifies fear and spreads misinformation.</p>
+                                <div class="mt-3 bg-white rounded-lg p-3">
+                                    <p class="text-sm text-gray-600"><strong>Evidence:</strong> 18.7% cite Internet/Social Media as belief source; 13.5% cite Movies/Media</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center">
+                            <i class="fas fa-arrow-down text-3xl text-gray-400"></i>
+                        </div>
+
+                        <!-- Why 5 - Root Cause -->
+                        <div class="flex items-start">
+                            <div class="bg-purple-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0 mr-4">5</div>
+                            <div class="flex-1 bg-purple-100 p-8 rounded-xl border-2 border-purple-600 relative">
+                                <div class="absolute bottom-2 right-2">
+                                    <button onclick="openImageUpload('root5')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                        <i class="fas fa-camera text-purple-600"></i>
+                                    </button>
+                                </div>
+                                <p class="font-bold text-purple-900 text-xl mb-4">ROOT CAUSE: Social Reinforcement & Spiritual Dependence</p>
+                                <p class="text-gray-800 leading-relaxed mb-4">Community influence and spiritual healers reinforce belief and provide emotional comfort, creating a self-sustaining cycle. The lack of integrated frameworks that respect both cultural traditions and scientific understanding leaves users without appropriate support systems.</p>
+                                <div class="bg-white rounded-lg p-4">
+                                    <p class="text-sm text-gray-700 font-medium mb-2">Key Insight:</p>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• 54.5% want medical OR combined support</li>
+                                        <li>• 21.6% want both approaches</li>
+                                        <li>• Fragmented support systems force users to choose sides</li>
+                                        <li>• No culturally-sensitive platforms exist to bridge this gap</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Upload for Root Causes Section -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-4">Upload Root Cause Visualizations</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('rootCausesImage1').click()">
+                            <i class="fas fa-sitemap text-4xl text-purple-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">5 Whys Diagram</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload 5 Whys diagram or fishbone diagram</p>
+                            <input type="file" id="rootCausesImage1" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'rootcauses')">
+                            <button class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Select Diagram</button>
+                        </div>
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('rootCausesImage2').click()">
+                            <i class="fas fa-project-diagram text-4xl text-blue-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Problem Tree</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload problem tree analysis</p>
+                            <input type="file" id="rootCausesImage2" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'rootcauses')">
+                            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Select Problem Tree</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HOW MIGHT WE SECTION -->
+            <section id="hmw" class="section">
+                <div class="mb-8">
+                    <h2 class="text-4xl font-bold gradient-bg text-white py-8 px-8 rounded-2xl mb-4">How Might We...?</h2>
+                    <p class="text-xl text-gray-600">Reframing our research insights into actionable design challenges.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-gradient-to-r from-yellow-50 to-amber-50 border-l-4 border-yellow-500 p-6 rounded-r-xl card-hover relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('hmw1')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-yellow-600"></i>
+                            </button>
+                        </div>
+                        <h3 class="text-xl font-bold text-amber-900 mb-2">HMW #1</h3>
+                        <p class="text-gray-800 text-lg">How might we provide 24/7 confidential counseling with grounding and culturally-sensitive support?</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-500 p-6 rounded-r-xl card-hover relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('hmw2')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-blue-600"></i>
+                            </button>
+                        </div>
+                        <h3 class="text-xl font-bold text-blue-900 mb-2">HMW #2</h3>
+                        <p class="text-gray-800 text-lg">How might we create rapid-response teams combining psychological aid and cultural mediation?</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 p-6 rounded-r-xl card-hover relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('hmw3')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-green-600"></i>
+                            </button>
+                        </div>
+                        <h3 class="text-xl font-bold text-green-900 mb-2">HMW #3</h3>
+                        <p class="text-gray-800 text-lg">How might we use AI-based assessments to guide users toward suitable medical, cultural, or integrated support?</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 p-6 rounded-r-xl card-hover relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('hmw4')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-purple-600"></i>
+                            </button>
+                        </div>
+                        <h3 class="text-xl font-bold text-purple-900 mb-2">HMW #4</h3>
+                        <p class="text-gray-800 text-lg">How might we build a transparent certification system for ethical cultural practitioners?</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-red-50 to-rose-50 border-l-4 border-red-500 p-6 rounded-r-xl card-hover relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('hmw5')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-red-600"></i>
+                            </button>
+                        </div>
+                        <h3 class="text-xl font-bold text-red-900 mb-2">HMW #5</h3>
+                        <p class="text-gray-800 text-lg">How might we create a trusted directory of verified spiritual practitioners who respect mental health boundaries?</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-indigo-50 to-blue-50 border-l-4 border-indigo-500 p-6 rounded-r-xl card-hover relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('hmw6')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-indigo-600"></i>
+                            </button>
+                        </div>
+                        <h3 class="text-xl font-bold text-indigo-900 mb-2">HMW #6</h3>
+                        <p class="text-gray-800 text-lg">How might we improve media literacy to help people identify superstition-based scams and misinformation?</p>
+                    </div>
+                </div>
+
+                <!-- Image Upload for HMW Section -->
+                <div class="mt-8 bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-4">Upload HMW Session Images</h3>
+                    <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('hmwImage').click()">
+                        <i class="fas fa-lightbulb text-4xl text-amber-400 mb-3"></i>
+                        <h4 class="font-semibold text-lg mb-2">HMW Brainstorming</h4>
+                        <p class="text-sm text-gray-500 mb-4">Upload photos of HMW brainstorming sessions or sticky note walls</p>
+                        <input type="file" id="hmwImage" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'hmw')">
+                        <button class="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition">Select Images</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 192 IDEAS SECTION -->
+            <section id="ideas" class="section">
+                <div class="mb-8">
+                    <h2 class="text-4xl font-bold gradient-bg text-white py-8 px-8 rounded-2xl mb-4">192 Ideas - 6-3-5 Brainstorming</h2>
+                    <p class="text-xl text-gray-600">Comprehensive collection of innovative solutions from our team's brainstorming sessions.</p>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                    <h3 class="font-bold mb-4">Filter & Sort Ideas:</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <select id="personFilter" class="border rounded-lg px-4 py-2" onchange="filterIdeas()">
+                            <option value="all">All Team Members</option>
+                            <option value="GAGAN">Gagan</option>
+                            <option value="AGASTHYA">Agasthya</option>
+                            <option value="JASHWANTH">Jashwanth</option>
+                            <option value="TANAI">Tanai</option>
+                            <option value="RUSHWANTH">Rushwanth</option>
+                            <option value="SUSAIN">Susain</option>
+                            <option value="VARSHITHA">Varshitha</option>
+                            <option value="SATHPHALA">Sathphala</option>
+                        </select>
+                        
+                        <select id="categoryFilter" class="border rounded-lg px-4 py-2" onchange="filterIdeas()">
+                            <option value="all">All Categories</option>
+                            <option value="tech">Technology Solutions</option>
+                            <option value="community">Community Interventions</option>
+                            <option value="education">Education & Awareness</option>
+                            <option value="policy">Policy & Safety</option>
+                            <option value="creative">Creative & Experiential</option>
+                        </select>
+                        
+                        <div class="flex space-x-2">
+                            <button onclick="showAllIdeas()" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Show All</button>
+                            <button onclick="showTopIdeas()" class="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">Top 10</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ideas Container -->
+                <div id="ideasContainer" class="space-y-8">
+                    <!-- Ideas will be dynamically inserted here by JavaScript -->
+                </div>
+
+                <!-- Image Upload for Ideas Section -->
+                <div class="mt-8 bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-4">Upload Brainstorming Images</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('brainstorm1').click()">
+                            <i class="fas fa-brain text-4xl text-purple-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">6-3-5 Session Photos</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload photos from brainstorming sessions</p>
+                            <input type="file" id="brainstorm1" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'ideas')">
+                            <button class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Select Photos</button>
+                        </div>
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('brainstorm2').click()">
+                            <i class="fas fa-sticky-note text-4xl text-blue-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Idea Clustering</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload idea clustering or affinity mapping images</p>
+                            <input type="file" id="brainstorm2" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'ideas')">
+                            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Select Images</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROTOTYPE SECTION -->
+            <section id="prototype" class="section">
+                <div class="mb-8">
+                    <h2 class="text-4xl font-bold gradient-bg text-white py-8 px-8 rounded-2xl mb-4">Prototype / Flow Diagram</h2>
+                    <p class="text-xl text-gray-600">Our selected solution: MindBridge Chatbot - A prompt-powered AI companion.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-6">MindBridge Chatbot</h3>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">1</div>
+                            <p class="text-gray-800">MindBridge is a prompt-powered chatbot offering judgment-free support for supernatural-related distress.</p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">2</div>
+                            <p class="text-gray-800">Users receive instant grounding exercises during moments of fear or anxiety.</p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">3</div>
+                            <p class="text-gray-800">Features include sharing experiences, understanding emotions, verified support, and calming audio guides.</p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">4</div>
+                            <p class="text-gray-800">The bot validates beliefs respectfully while providing psychological and cultural insights.</p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">5</div>
+                            <p class="text-gray-800">Built using system prompts and free LLM APIs without complex backend or training.</p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">6</div>
+                            <p class="text-gray-800">Supports multiple languages including English, Hindi, Telugu, and Tamil.</p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">7</div>
+                            <p class="text-gray-800">Includes crisis escalation with emergency contacts for self-harm situations.</p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">8</div>
+                            <p class="text-gray-800">Privacy-focused: no login, optional chat storage, and on-device data handling.</p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">9</div>
+                            <p class="text-gray-800">Offers 24hr/72hr wellbeing follow-up reminders.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Flow Diagram -->
+                    <div class="bg-gray-50 p-6 rounded-xl relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('prototype1')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-blue-600"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold mb-4">User Flow:</h4>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-blue-500 text-white px-3 py-1 rounded">Start</div>
+                                <i class="fas fa-arrow-right text-gray-400"></i>
+                                <div class="bg-purple-500 text-white px-3 py-1 rounded">Welcome</div>
+                                <i class="fas fa-arrow-right text-gray-400"></i>
+                                <div class="bg-yellow-500 text-white px-3 py-1 rounded">Distress Check</div>
+                            </div>
+                            <div class="flex items-center space-x-3 ml-20">
+                                <i class="fas fa-arrow-down text-gray-400"></i>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-green-500 text-white px-3 py-1 rounded">Grounding</div>
+                                <div class="bg-blue-500 text-white px-3 py-1 rounded">Main Menu</div>
+                            </div>
+                            <div class="flex items-center space-x-3 ml-20">
+                                <i class="fas fa-arrow-down text-gray-400"></i>
+                            </div>
+                            <div class="flex space-x-2">
+                                <div class="bg-pink-500 text-white px-3 py-1 rounded text-xs">Share</div>
+                                <div class="bg-purple-500 text-white px-3 py-1 rounded text-xs">Learn</div>
+                                <div class="bg-blue-500 text-white px-3 py-1 rounded text-xs">Support</div>
+                                <div class="bg-green-500 text-white px-3 py-1 rounded text-xs">Calm</div>
+                            </div>
+                            <div class="flex items-center space-x-3 ml-20">
+                                <i class="fas fa-arrow-down text-gray-400"></i>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-gray-500 text-white px-3 py-1 rounded">Follow-up</div>
+                                <i class="fas fa-arrow-right text-gray-400"></i>
+                                <div class="bg-red-500 text-white px-3 py-1 rounded">Crisis Escalation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('prototype2')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-blue-600"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-lg mb-4">Key Features</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Belief-Aware Responses</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Immediate Grounding</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Dual-Perspective Education</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Verified Resource Directory</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Crisis Escalation</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Privacy-First Design</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Multilingual Support</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-lg p-6 relative">
+                        <div class="absolute bottom-2 right-2">
+                            <button onclick="openImageUpload('prototype3')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                                <i class="fas fa-camera text-blue-600"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-lg mb-4">MVP Scope</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li>• Built with prompt engineering + free LLM API</li>
+                            <li>• Deployable via Streamlit/WhatsApp in &lt;1 hour</li>
+                            <li>• Tested with anonymized survey responses</li>
+                            <li>• No model training required</li>
+                            <li>• Simple web interface or WhatsApp bot</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Image Upload for Prototype Section -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-4">Upload Prototype Images</h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('proto1').click()">
+                            <i class="fas fa-mobile-alt text-4xl text-blue-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Chatbot Screenshots</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload chatbot interface screenshots</p>
+                            <input type="file" id="proto1" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'prototype')">
+                            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Select Screenshots</button>
+                        </div>
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('proto2').click()">
+                            <i class="fas fa-sitemap text-4xl text-purple-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Flow Diagrams</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload user flow or wireframe diagrams</p>
+                            <input type="file" id="proto2" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'prototype')">
+                            <button class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Select Diagrams</button>
+                        </div>
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('proto3').click()">
+                            <i class="fas fa-vial text-4xl text-green-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Testing Photos</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload user testing or demo photos</p>
+                            <input type="file" id="proto3" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'prototype')">
+                            <button class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">Select Photos</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- COURT CASES SECTION -->
+            <section id="courtcases" class="section">
+                <div class="mb-8">
+                    <h2 class="text-4xl font-bold gradient-bg text-white py-8 px-8 rounded-2xl mb-4">Court Cases Analysis</h2>
+                    <p class="text-xl text-gray-600">Legal precedents and court cases related to black magic and supernatural claims in India.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-6">Key Court Cases</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-blue-500 pl-6 py-4 bg-blue-50 rounded-r-xl">
+                            <h4 class="font-bold text-lg mb-2">P.Rajagopal And Ors. vs The State Of Tamil Nadu (2019)</h4>
+                            <p class="text-gray-700 mb-2">Case involving alleged witchcraft (black magic) as cause of being in love. Accused performed rituals to remove influence of black magic.</p>
+                            <p class="text-sm text-gray-500">Supreme Court of India | Cited by 199</p>
+                        </div>
+                        
+                        <div class="border-l-4 border-purple-500 pl-6 py-4 bg-purple-50 rounded-r-xl">
+                            <h4 class="font-bold text-lg mb-2">Ammini And Others vs State Of Kerala (1997)</h4>
+                            <p class="text-gray-700 mb-2">Family attempted to ruin another family with aid of persons practising black magic and witch-craft. Multiple attempts remained ineffective.</p>
+                            <p class="text-sm text-gray-500">Supreme Court of India | Cited by 18</p>
+                        </div>
+                        
+                        <div class="border-l-4 border-green-500 pl-6 py-4 bg-green-50 rounded-r-xl">
+                            <h4 class="font-bold text-lg mb-2">Sangeet & Anr vs State Of Haryana (2012)</h4>
+                            <p class="text-gray-700 mb-2">Accused believed family had performed black magic which led to death. Case highlights violence stemming from supernatural beliefs.</p>
+                            <p class="text-sm text-gray-500">Supreme Court of India | Cited by 145</p>
+                        </div>
+                        
+                        <div class="border-l-4 border-red-500 pl-6 py-4 bg-red-50 rounded-r-xl">
+                            <h4 class="font-bold text-lg mb-2">The State Of Maharashtra vs Maroti (2022)</h4>
+                            <p class="text-gray-700 mb-2">Human Sacrifice and other Inhuman, Evil and Aghori Practices and Black Magic Act, 2013. Highlights legal framework against harmful practices.</p>
+                            <p class="text-sm text-gray-500">Supreme Court of India | Cited by 2</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Upload for Court Cases Section -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-4">Upload Legal Documents</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('legal1').click()">
+                            <i class="fas fa-gavel text-4xl text-blue-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Court Documents</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload court case documents or judgments</p>
+                            <input type="file" id="legal1" accept=".pdf,image/*" class="hidden" onchange="handleFileUpload(this, 'courtcases')">
+                            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Select Documents</button>
+                        </div>
+                        <div class="upload-area rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('legal2').click()">
+                            <i class="fas fa-balance-scale text-4xl text-purple-400 mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">Legal Analysis</h4>
+                            <p class="text-sm text-gray-500 mb-4">Upload legal analysis or case study documents</p>
+                            <input type="file" id="legal2" accept=".pdf,image/*" class="hidden" onchange="handleFileUpload(this, 'courtcases')">
+                            <button class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Select Analysis</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONCLUSION SECTION -->
+            <section id="conclusion" class="section">
+                <div class="mb-8">
+                    <h2 class="text-4xl font-bold gradient-bg text-white py-8 px-8 rounded-2xl mb-4">Conclusion & Learnings</h2>
+                    <p class="text-xl text-gray-600">Key insights and takeaways from our Design Thinking journey.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 relative">
+                    <div class="absolute bottom-2 right-2">
+                        <button onclick="openImageUpload('conclusion1')" class="bg-white/90 p-2 rounded-full hover:bg-white transition shadow-lg">
+                            <i class="fas fa-camera text-blue-600"></i>
+                        </button>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-blue-900">What We Learned</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 p-6 rounded-xl">
+                            <h4 class="font-bold text-blue-900 mb-2 flex items-center">
+                                <i class="fas fa-users mr-2"></i>
+                                Understanding the Gray Zone
+                            </h4>
+                            <p class="text-gray-800">Young adults don't exist in binary states of belief or disbelief. Most occupy a complex "gray zone" where scientific education coexists with cultural traditions, creating unique psychological tensions that require nuanced, non-judgmental support.</p>
+                        </div>
+                        
+                        <div class="bg-purple-50 p-6 rounded-xl">
+                            <h4 class="font-bold text-purple-900 mb-2 flex items-center">
+                                <i class="fas fa-brain mr-2
